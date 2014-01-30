@@ -20,16 +20,18 @@ class Bootstrap {
   }
 
   public function enroute() {
-    if (!file_exists("controllers/" . $this->object . ".php")) 
+    if ($this->method == NULL) {
+      $this->method = "index";
+    }
+
+    if ((!file_exists("controllers/" . $this->object . ".php")) or
+            (!method_exists($this->object, $this->method))) {
       $this->object = 'error';
+      $this->method = "index";
+    }
 
     $controller = new $this->object;
-
-    if ($this->method != NULL) {
-      call_user_func_array(array($controller, $this->method), $this->param);
-    } else {
-      $controller->{"index"}();
-    }
+    call_user_func_array(array($controller, $this->method), $this->param);
   }
 
 }
