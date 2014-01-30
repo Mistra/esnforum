@@ -1,14 +1,20 @@
 <?php
 
-class login extends Controller{
+class login extends Controller {
+
   public function __construct() {
     parent::__construct();
+    $model = get_class($this) . "_Model";
+    $this->model = new $model;
+  }
+
+  public function input() {
+    $this->model->login($_POST['Nome'], $_POST['Password']);
+    header("location: /esnforum/index");
   }
   
-  public function input(){
-    echo $_POST['Nome'];
-    echo $_POST['Password'];
-    //$this->view->render();
+  public function logout() {
+    $this->model->logout();
+    header("location: /esnforum/index");
   }
 }
-

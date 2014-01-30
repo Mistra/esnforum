@@ -20,7 +20,7 @@ class Bootstrap {
   }
 
   public function enroute() {
-    if (!file_exists("controllers/" . $this->object . ".php"))
+    if (!file_exists("controllers/" . $this->object . ".php")) 
       $this->object = 'error';
 
     $controller = new $this->object;

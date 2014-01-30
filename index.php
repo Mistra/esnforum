@@ -1,7 +1,5 @@
 <?php
 
-//call_user_func_array("foo", $array);
-
 function autoloadLib($className) {
   $filename = "libs/" . $className . ".php";
   if (is_readable($filename)) {
@@ -16,9 +14,18 @@ function autoloadController($className) {
   }
 }
 
+
 function autoloadView($className) {
   $className = substr($className, 0, -5);
-  $filename = "views/" . $className . ".php";
+  $filename = "views/" . $className . "/" . $className . ".php";
+  if (is_readable($filename)) {
+    require $filename;
+  }
+  }
+
+function autoloadModel($className) {
+  $className = substr($className, 0, -6);
+  $filename = "models/" . $className . ".php";
   if (is_readable($filename)) {
     require $filename;
   }
@@ -27,7 +34,7 @@ function autoloadView($className) {
 spl_autoload_register("autoloadLib");
 spl_autoload_register("autoloadController");
 spl_autoload_register("autoloadView");
-
+spl_autoload_register("autoloadModel");
 
 $forum = new Bootstrap();
 $forum->enroute();

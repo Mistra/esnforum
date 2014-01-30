@@ -1,0 +1,36 @@
+#header,
+#footer {
+    font-family:Georgia, serif;
+    background-color:#2A2A2A;
+    text-align:left;
+    height:22px;
+    color:white;
+    padding:10px;
+}
+
+h1, h2 {
+    margin:50px;
+    font-family:"Times New Roman", Times, serif;
+    color:#383838;
+}
+
+#main {
+    width:100%;
+    text-align:center;
+}
+
+#header a {
+    margin:15px;
+    color:white;
+    text-decoration:none;
+}
+
+#header a:hover {
+    text-decoration:underline;
+}
+
+body {
+    margin:0;
+    padding:0;
+}
+
