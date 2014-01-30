@@ -9,7 +9,12 @@ class login extends Controller {
   }
 
   public function input() {
-    $this->model->login($_POST['Nome'], $_POST['Password']);
+    $name = filter_input(INPUT_POST, "Nome",
+            FILTER_SANITIZE_SPECIAL_CHARS);
+    $password = filter_input(INPUT_POST, "Password",
+            FILTER_SANITIZE_SPECIAL_CHARS);
+            
+    $this->model->login($name, $password);
     header("location: /esnforum/index");
   }
   
