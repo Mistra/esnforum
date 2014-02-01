@@ -14,5 +14,4 @@ class category_View extends View {
   public function getId() {
     return $this->id;
   }
-
 }

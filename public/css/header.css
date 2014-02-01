@@ -8,6 +8,11 @@
     padding:10px;
 }
 
+#subheader {
+    height:3px;
+    background-color:#2E9AFE;
+}
+
 h1, h2 {
     margin:50px;
     font-family:"Times New Roman", Times, serif;

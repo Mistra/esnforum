@@ -14,14 +14,13 @@ function autoloadController($className) {
   }
 }
 
-
 function autoloadView($className) {
   $className = substr($className, 0, -5);
   $filename = "views/" . $className . "/" . $className . ".php";
   if (is_readable($filename)) {
     require $filename;
   }
-  }
+}
 
 function autoloadModel($className) {
   $className = substr($className, 0, -6);
