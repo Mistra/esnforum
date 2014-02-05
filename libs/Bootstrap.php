@@ -1,5 +1,5 @@
 <?php
-
+// Fix: fai in modo che la pagina che finisca per / dia errore
 class Bootstrap {
 
   private $object = NULL;

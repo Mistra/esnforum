@@ -4,6 +4,7 @@ class category_View extends View {
 
   public function __construct() {
     parent::__construct();
+    $this->category = new category_Model;
     $this->thread = new thread_Model;
   }
 

@@ -7,8 +7,8 @@ class thread_Model extends Model {
   }
   
   public function getListByCategory($id) {
-    $sql = "SELECT title, user.nick as user, thread.id, tab.nick as lastby
-            FROM thread, user, (SELECT nick, post.date as date, thread.id as tid
+    $sql = "SELECT title, user.name as user, thread.id, tab.name as lastby
+            FROM thread, user, (SELECT name, post.date as date, thread.id as tid
                                 FROM thread, post, user 
                                 WHERE post.user = user.id 
                                 AND thread.id = post.thread 

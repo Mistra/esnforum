@@ -1,4 +1,4 @@
-<h1> Category </h1>
+<h1> <?=$this->category->getById($this->getId())['name']?></h1>
 
 <table>
   <tr>
