@@ -33,44 +33,62 @@ class user_Model extends Model {
 
 }
 
+function cast($destination, $sourceObject) {
+  if (is_string($destination)) {
+    $destination = new $destination();
+  }
+  $sourceReflection = new ReflectionObject($sourceObject);
+  $destinationReflection = new ReflectionObject($destination);
+  $sourceProperties = $sourceReflection->getProperties();
+  foreach ($sourceProperties as $sourceProperty) {
+    $sourceProperty->setAccessible(true);
+    $name = $sourceProperty->getName();
+    $value = $sourceProperty->getValue($sourceObject);
+    if ($destinationReflection->hasProperty($name)) {
+      $propDest = $destinationReflection->getProperty($name);
+      $propDest->setAccessible(true);
+      $propDest->setValue($destination, $value);
+    } else {
+      $destination->$name = $value;
+    }
+  }
+  return $destination;
+}
+
+
+
 //private non è leggibile, da usare per ciclare solo i public
 //puoi iniettare funzioni costruite ad hoc con gli oggetti
 // non impestare la dbMapper
 
-class dbMapper extends Model{
+class dbMapper extends Model {
   
-  protected $obj;
-  protected $classname;
-  protected $properties;
-  protected $setProperties;
-  protected $updProperties;
-  
-
-  public function __construct($domainObject) {
+  public function __construct() {
     parent::__construct();
-    $this->obj = $domainObject;
-    
-    
   }
 
   public function map() {
     foreach ($this->setProperties as $property) {
-      if (!isset($properties))
+      if (!isset($properties)) {
+        $qstring = "?";
         $properties = $property;
-      else
+      } else {
+        $qstring = $qstring . ",?";
         $properties = $properties . ", " . $property;
-      $values[]=$this->obj->{$property};
+      }
+      $values[] = $this->{$property};
     }
-    
-    $sql = "INSERT INTO " . $this->classname . 
-            " (" . $properties . 
-            ") VALUES (?,?,?,?)";
+
+    $sql = "INSERT INTO " . get_class($this) .
+            " (" . $properties .
+            ") VALUES (".$qstring.")";
     $query = $this->db->prepare($sql);
     $query->execute($values);
+    $this->load($this->db->lastInsertId());
   }
 
   public function erase() {
-    $sql = "DELETE FROM " . $this->classname . 
+    $sql = "DELETE FROM " . $this->classname .
             "WHERE id = ?";
     $query = $this->db->prepare($sql);
     $query->execute(array($this->obj->id));
@@ -80,38 +98,40 @@ class dbMapper extends Model{
     
   }
 
-  public function load() {
-    
+  public function load($id) {
+    $sql = "SELECT * FROM " . get_class($this) .
+            " WHERE id=?";
+    $query = $this->db->prepare($sql);
+    $query->execute(array($id));
+    $semiobj = $query->fetchObject();
+    //echo $semiobj->id;
+    return cast('user', $semiobj);
+    //return $this->obj;
   }
 
-}
+} 
 
-class userMapper extends dbMapper {
-  public function __construct($object) {
-    parent::__construct($object);
-    $this->classname = "user";
-    $this->setProperties = array("name", "password", "email", "date");
-    $this->updProperties = array("name", "password", "email",
-        "level", "resetcode");
-  }
-}
-
-class user {
-
+class user extends dbMapper {
+  public $setProperties;
   public function __construct() {
-    
+    parent::__construct();
+    $this->setProperties = array("name", "password", "email",);
+    }
+
+  public function getName() {
+    return $this->name;
   }
 
   public function create($name, $pass, $email) {
     $this->name = $name;
     $this->password = $pass;
     $this->email = $email;
-    $this->date = date("Y-m-d H:i:s");
   }
   
+  /*
   public function load($id) {
     
-  }
+  }*/
 
   public function set() {
     
@@ -120,12 +140,4 @@ class user {
   public function delete() {
     
   }
-  
-  public $id;
-  public $name;
-  public $password;
-  public $email;
-  public $date;
-  public $level;
-  public $resetcode;
 }
