@@ -1,11 +1,7 @@
 <?php
 
-class category_Model extends Model {
-
-  public function __construct() {
-    parent::__construct();
-  }
-  
+class category_Model {
+  /*
   public function getById($id) {
     $sql = "SELECT name FROM
               category WHERE id = ?";
@@ -25,4 +21,6 @@ class category_Model extends Model {
     $query->execute();
     return $query->fetchAll(); //array
   }
+   * 
+   */
 }

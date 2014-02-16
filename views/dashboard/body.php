@@ -1,38 +1,20 @@
 <h1> Dashboard! </h1>
 
 <?php
-
+/*
 require ("models/user.php");
 
-$current = new user;
-$current->create("dio", "nio", "jio");
-$current = $current->map();
-var_dump($current->setProperties);
-echo $current->id;
-//$current = $mapper->load(168);
-//echo $current->getName();
+$use = new user_Model;
 
-/*
-class A 
-{
-  public function __construct(){
-    $this->_x="jack";
-  }
-  public function foo(){
-    return "fool";
-  }
-  private $_x;   
+$users = R::findAll('user');
+
+foreach ($users as $user) {
+  echo $user->name . "</br>";
 }
 
-class B 
-{
-  public function foo(){
-    return $this->_x;
-  }
-  public $_x;   
-}
-
-$a = new A();
-
-$x = cast('B',$a);
-echo $x->foo();*/
+$user = R::findOne('user',
+        'name = ?', array("nio"));
+if ($user == NULL)
+  echo "not found";
+else 
+  echo $user->name;*/

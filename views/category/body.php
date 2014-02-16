@@ -1,4 +1,4 @@
-<h1> <?=$this->category->getById($this->getId())['name']?></h1>
+<h1> <?=$this->title ?></h1>
 
 <table>
   <tr>
@@ -8,20 +8,18 @@
     <th>Ultima Risposta</th>
   </tr>
 
-  <?php foreach ($this->thread->getListByCategory($this->getId()) as $thread):?>
+  <?php foreach ($this->threads as $thread):?>
 
   <tr>
+    <td> <img src="/esnforum/public/img/bubble.png"> </td>
     <td>
-      <img src="/esnforum/public/img/bubble.png">
-    </td>
-    <td>
-      <a href="/esnforum/thread/index/<?= $thread[2] ?>">
-          <?= $thread[0] ?>
+      <a href="/esnforum/thread/index/<?= $thread->id ?>">
+          <?= $thread->title ?>
       </a> <br/>
-      Creato da: <?= $thread[1] ?>
+      Creato da:
     </td>
     <td></td>
-    <td> <?= $thread[3] ?> </td>
+    <td>  </td>
   </tr>
 <?php endforeach ?>
 </table>

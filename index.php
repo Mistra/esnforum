@@ -30,6 +30,8 @@ function autoloadModel($className) {
   }
 }
 
+require("libs/Rb.php");
+
 spl_autoload_register("autoloadLib");
 spl_autoload_register("autoloadController");
 spl_autoload_register("autoloadView");

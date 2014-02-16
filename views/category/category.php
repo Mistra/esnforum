@@ -2,17 +2,8 @@
 
 class category_View extends View {
 
-  public function __construct() {
-    parent::__construct();
-    $this->category = new category_Model;
-    $this->thread = new thread_Model;
-  }
-
   public function setId($id) {
-    $this->id = $id;
-  }
-
-  public function getId() {
-    return $this->id;
+    $this->threads = R::find("thread", "category=?", array( $id ) );
+    $this->title = R::load("category", $id)->name;
   }
 }

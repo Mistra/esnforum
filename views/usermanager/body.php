@@ -8,10 +8,10 @@
 </form>
 
 <div id="listInserts">
-<?php foreach ($this->user->loadAll() as $user): ?>
+<?php foreach ($this->users as $user): ?>
   <div>
-    <?= $user['name'] ?>
-    <a class='del' href="<?= $user['id'] ?>" > delete</a>
+    <?= $user->name ?>
+    <a class='del' href="<?= $user->id ?>" > delete</a>
   </div>
 <?php endforeach ?>
 </div>

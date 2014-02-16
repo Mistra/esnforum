@@ -12,10 +12,5 @@ class usermanager extends Controller{
     $model = new user_Model;
     $model->deleteById($id);
     //header("location: /esnforum/usermanager");
-  }
-  
-  public function loadAll() {
-    $model = new user_Model;
-    $model->loadAll();
-  }
+    }
 }

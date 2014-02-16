@@ -1,6 +1,6 @@
 <?php
 
-class thread_Model extends Model {
+class thread_Model{
 
   public function __construct() {
     parent::__construct();

@@ -4,8 +4,7 @@ class login extends Controller {
 
   public function __construct() {
     parent::__construct();
-    $model = get_class($this) . "_Model";
-    $this->model = new $model;
+    $this->model = new login_Model;
   }
 
   public function input() {
